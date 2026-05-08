@@ -67,7 +67,7 @@ function buildCarousel() {
   shuffledIdeas = shuffle(ideas);
   cardCount = shuffledIdeas.length;
   anglePerCard = 360 / cardCount;
-  const radius = 550;
+  const radius = 200;
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = '';
   carousel.style.setProperty('--radius', `${radius}px`);
@@ -189,6 +189,9 @@ function updateFrontCard() {
 
   if (closestIdx !== lastFrontIdx) {
     lastFrontIdx = closestIdx;
+    // Snap to exact angle so the front card is always visually centred
+    const fullRotations = Math.round(currentAngle / 360) * 360;
+    currentAngle = fullRotations + (-(closestIdx * anglePerCard));
     updatePeekCards(closestIdx);
   }
 }

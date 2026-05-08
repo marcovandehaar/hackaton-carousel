@@ -7,6 +7,7 @@ let animationId = null;
 let cardCount = 0;
 let anglePerCard = 0;
 let shuffledIdeas = [];
+let lastFrontIdx = -1;
 
 // ─── Wishlist (localStorage) ───
 const WISHLIST_KEY = 'hackathon-wishlist';
@@ -66,7 +67,7 @@ function buildCarousel() {
   shuffledIdeas = shuffle(ideas);
   cardCount = shuffledIdeas.length;
   anglePerCard = 360 / cardCount;
-  const radius = 800;
+  const radius = 550;
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = '';
   carousel.style.setProperty('--radius', `${radius}px`);
@@ -142,9 +143,31 @@ function applyRotation() {
   updateFrontCard();
 }
 
+function buildPeekContent(idea) {
+  return `
+    <div class="card-header">
+      <span class="card-track">${idea.track}</span>
+    </div>
+    <h3 class="card-title">${idea.title}</h3>
+    <p class="card-description">${idea.description}</p>
+    <div class="card-meta">
+      <span class="card-author">By: ${idea.author}</span>
+    </div>`;
+}
+
+function updatePeekCards(frontIdx) {
+  const prevIdx = (frontIdx - 1 + cardCount) % cardCount;
+  const nextIdx = (frontIdx + 1) % cardCount;
+  const peekLeft  = document.getElementById('peekLeft');
+  const peekRight = document.getElementById('peekRight');
+  peekLeft.dataset.track  = shuffledIdeas[prevIdx].track;
+  peekLeft.innerHTML      = buildPeekContent(shuffledIdeas[prevIdx]);
+  peekRight.dataset.track = shuffledIdeas[nextIdx].track;
+  peekRight.innerHTML     = buildPeekContent(shuffledIdeas[nextIdx]);
+}
+
 function updateFrontCard() {
   const cards = document.querySelectorAll('.card');
-  // Normalize angle to 0-360
   const normalizedAngle = (((-currentAngle) % 360) + 360) % 360;
   let closestIdx = 0;
   let closestDist = 360;
@@ -160,20 +183,14 @@ function updateFrontCard() {
   });
 
   cards.forEach((card, i) => {
-    const isFront = i === closestIdx;
-    // Calculate position distance (how many cards away)
-    let posDist = Math.abs(i - closestIdx);
-    if (posDist > cardCount / 2) posDist = cardCount - posDist;
-
-    card.classList.toggle('is-front', isFront);
-    if (posDist === 0) {
-      card.style.opacity = '1';
-    } else if (posDist === 1) {
-      card.style.opacity = '0.5';
-    } else {
-      card.style.opacity = '0';
-    }
+    card.classList.toggle('is-front', i === closestIdx);
+    card.style.opacity = i === closestIdx ? '1' : '0';
   });
+
+  if (closestIdx !== lastFrontIdx) {
+    lastFrontIdx = closestIdx;
+    updatePeekCards(closestIdx);
+  }
 }
 
 function play() {

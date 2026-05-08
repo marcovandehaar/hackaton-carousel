@@ -110,6 +110,9 @@ body::before {
   justify-content: center;
   width: 100%;
   z-index: 1;
+  padding: 80px 0 90px;
+  overflow: hidden;
+  position: relative;
 }
 
 .carousel-scene {
@@ -118,7 +121,51 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1000px;
+  perspective: 2800px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── PEEK CARDS (outside 3D context to avoid preserve-3d compositing issues) ─── */
+.peek-card {
+  position: absolute;
+  width: var(--card-width);
+  height: var(--card-height);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.22;
+  filter: blur(2px);
+  pointer-events: none;
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(20, 20, 30, 0.95);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.peek-card--left  { right: calc(50% - 50px); }
+.peek-card--right { left:  calc(50% - 50px); }
+
+.peek-card::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 0;
+  width: 3px;
+  height: 48px;
+  border-radius: 0 3px 3px 0;
+}
+
+.peek-card[data-track="Agentic Banking"]::before {
+  background: linear-gradient(to bottom, var(--color-agentic-1), var(--color-agentic-2));
+}
+
+.peek-card[data-track="AI Productivity"]::before {
+  background: linear-gradient(to bottom, var(--color-productivity-1), var(--color-productivity-2));
 }
 
 .carousel {
@@ -140,7 +187,7 @@ body::before {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: box-shadow 0.3s ease, opacity 0.3s ease;
+  transition: box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
   background: rgba(20, 20, 30, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -150,6 +197,9 @@ body::before {
 
 .card.is-front {
   opacity: 1;
+  background: rgb(20, 20, 30);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 

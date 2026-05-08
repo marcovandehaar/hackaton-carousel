@@ -12,12 +12,25 @@
 <body>
   <header class="top-bar">
     <div class="logo">AI Hackathon <span class="logo-accent">Ideas</span></div>
-    <button class="wishlist-btn" id="wishlistBtn" aria-label="View wishlist">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-      </svg>
-      <span class="wishlist-count" id="wishlistCount">0</span>
-    </button>
+    <div class="top-bar-actions">
+      <button class="wishlist-btn" id="wishlistBtn" aria-label="View wishlist">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="wishlist-count" id="wishlistCount">0</span>
+      </button>
+      <div class="help-icon" aria-label="Help">
+        <span class="help-trigger">?</span>
+        <div class="help-tooltip">
+          <p><strong>Click a card</strong> — pause &amp; focus that idea</p>
+          <p><strong>← → buttons</strong> — navigate between ideas</p>
+          <p><strong>Details ↗</strong> — open the idea's Confluence page</p>
+          <p><strong>Sign up</strong> — register for the hackathon</p>
+          <p><strong>♥ heart</strong> — save to your favorites list</p>
+          <p><strong>Keyboard</strong> — arrow keys to navigate, space to play/pause</p>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main class="carousel-container">

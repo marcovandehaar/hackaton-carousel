@@ -259,7 +259,7 @@ function openWishlistModal() {
       const idea = ideas.find(i => i.id === id);
       if (!idea) return '';
       return `
-        <div class="wishlist-item">
+        <div class="wishlist-item" data-track="${idea.track}">
           <div class="wishlist-item-info">
             <div class="wishlist-item-title">${idea.title}</div>
             <div class="wishlist-item-meta">By: ${idea.author} · ${idea.track}</div>
@@ -276,7 +276,7 @@ function openWishlistModal() {
           </button>
         </div>
       `;
-    }).join('');
+    }).join('') + `<a href="${SIGNUP_URL}" target="_blank" rel="noopener" class="wishlist-signup-btn">Sign up for Hackathon</a>`;
 
     list.querySelectorAll('.wishlist-item-remove').forEach(btn => {
       btn.addEventListener('click', () => {

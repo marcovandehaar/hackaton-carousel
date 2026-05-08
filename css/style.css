@@ -552,6 +552,25 @@ body::before {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.wishlist-signup-btn {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--color-productivity-1), var(--color-productivity-2));
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.wishlist-signup-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .wishlist-item-remove {
   background: none;
   border: none;
